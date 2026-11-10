@@ -174,7 +174,7 @@ function hero() {
   const wrapped = state.people.filter(p => ["wrapped", "given"].includes(personStatus(p))).length;
   return `<div class="hero" data-act="budgettab"><small>${over ? "Over budget by " + money(s - b) : "Spent of " + money(b) + " budget"}</small><b class="${over ? "over" : ""}">${money(s)}</b>
     <div class="meter"><i class="${over ? "over" : ""}" style="width:${pct}%"></i></div>
-    <div class="stats"><span>${state.people.length} people</span><span>${bought} bought</span><span>${wrapped} wrapped</span>${pl > s ? `<span>${money(pl - s)} planned</span>` : ""}</div>
+    <div class="stats"><span>${state.people.length} ${state.people.length === 1 ? "person" : "people"}</span><span>${bought} bought</span><span>${wrapped} wrapped</span>${pl > s ? `<span>${money(pl - s)} planned</span>` : ""}</div>
     ${isCat() ? `<img src="${ART.gifts}" alt="">` : ""}</div>`;
 }
 function renderPeople() {
@@ -223,7 +223,7 @@ function renderBudget() {
 function renderMore() {
   return `<div class="card" style="display:flex;gap:12px;align-items:center">${isCat() ? `<img src="${ART.icon}" alt="" style="width:56px;height:56px;border-radius:14px">` : "🎁"}<div><h3 style="margin:0">Gift Tracker</h3><p class="tip" style="margin:2px 0 0">Christmas ${state.year} · your data stays on this device</p></div></div>
     <div class="card"><h3>Theme</h3><div class="skins">${[["cat", "Cats", "linear-gradient(135deg,#fde3e8,#efe3fb)"], ["xmas", "Christmas", "linear-gradient(135deg,#b3263a,#2f6b4f)"], ["neutral", "Neutral", "linear-gradient(135deg,#f4f1ec,#7a6a58)"], ["dark", "Dark", "linear-gradient(135deg,#17151c,#e0566b)"]].map(([k, l, g]) => `<button data-skin="${k}" class="${(state.skin || "cat") === k ? "on" : ""}"><i style="background:${g}"></i>${l}</button>`).join("")}</div></div>
-    <div class="card"><h3>Past years</h3><p class="tip">So you never give the same thing twice. Shows on each person's page.</p>${(state.archive || []).map(a => `<div class="kv"><span>${a.year}</span><span class="tip" style="margin:0">${a.people.length} people · ${a.people.reduce((s, p) => s + p.gifts.length, 0)} gifts</span></div>`).join("") || `<p class="tip">Nothing archived yet.</p>`}
+    <div class="card"><h3>Past years</h3><p class="tip">So you never give the same thing twice. Shows on each person's page.</p>${(state.archive || []).map(a => `<div class="kv"><span>${a.year}</span><span class="tip" style="margin:0">${a.people.length} ${a.people.length === 1 ? "person" : "people"} · ${a.people.reduce((s, p) => s + p.gifts.length, 0)} gifts</span></div>`).join("") || `<p class="tip">Nothing archived yet.</p>`}
       <button class="ghost" data-act="newyear">Finish ${state.year} and start next year</button></div>
     <div class="card"><h3>Backup</h3><p class="tip">Copy a backup and paste it somewhere safe (Notes, email). Restore it on a new phone.</p><button class="primary" data-act="backup">Copy backup</button><button class="ghost" data-act="restore">Restore from backup</button></div>
     <div class="card"><h3>Export</h3><p class="tip">Copies every gift as rows (Person, Gift, Shop, Price, Status) to paste into Google Sheets or Excel.</p><button class="ghost" data-act="export">Copy spreadsheet rows</button></div>
